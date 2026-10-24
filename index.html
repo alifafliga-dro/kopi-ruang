@@ -882,9 +882,21 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   [data-rv]{ opacity:1 !important; transform:none !important; }
   .mask-line > span,.word{ opacity:1 !important; transform:none !important; }
 }
-/* Kedai Senja art direction: keep Kage's authored layout and motion, shift the hero image to the coffee bar. */
-#hero{isolation:isolate;background-image:linear-gradient(90deg,rgba(17,13,10,.88) 0%,rgba(17,13,10,.66) 43%,rgba(17,13,10,.18) 100%),linear-gradient(0deg,rgba(17,13,10,.68),transparent 48%),url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1800&q=90");background-position:center 48%;background-size:cover;background-repeat:no-repeat}
-@media(max-width:700px){#hero{background-image:linear-gradient(90deg,rgba(17,13,10,.80),rgba(17,13,10,.42)),linear-gradient(0deg,rgba(17,13,10,.76),transparent 54%),url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1000&q=85");background-position:56% center}}#gate{background-image:linear-gradient(180deg,rgba(17,13,10,.82),rgba(17,13,10,.74)),url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=85");background-position:center;background-size:cover}
+/* Kedai Senja: keep Kage's immersive scene, then add a slow camera drift, warm light and animated coffee steam. */
+#hero{isolation:isolate;background-image:linear-gradient(90deg,rgba(17,13,10,.88) 0%,rgba(17,13,10,.64) 43%,rgba(17,13,10,.13) 100%),linear-gradient(0deg,rgba(17,13,10,.72),transparent 53%),url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1800&q=90");background-position:center 48%;background-size:cover;background-repeat:no-repeat;animation:coffee-camera 30s cubic-bezier(.45,0,.25,1) infinite alternate}
+#hero .hero-top,#hero .hero-foot,#hero .peek,#hero .hero-side{z-index:3}
+#hero .coffee-steam{position:absolute;z-index:2;left:53%;bottom:24%;width:clamp(10px,1.5vw,21px);height:clamp(90px,13vw,180px);border-radius:50%;background:linear-gradient(0deg,transparent,rgba(255,226,190,.22) 42%,rgba(255,240,217,.04) 80%,transparent);filter:blur(7px);pointer-events:none;opacity:0;animation:steam-rise 6.8s ease-in-out infinite}
+#hero .coffee-steam:nth-of-type(2){left:57%;height:clamp(75px,11vw,150px);animation-delay:2.2s;transform:scaleX(.75)}
+#hero .coffee-steam:nth-of-type(3){left:50%;height:clamp(65px,9vw,125px);animation-delay:4.1s;transform:scaleX(.65)}
+#hero .hero-cta{display:inline-flex;align-items:center;gap:16px;margin-top:23px;padding:13px 18px;border:1px solid rgba(237,213,184,.55);border-radius:2px;color:#f4eee5;font-size:10px;letter-spacing:.19em;text-transform:uppercase;transition:background .35s,border-color .35s,transform .35s}
+#hero .hero-cta span{color:#d99b6c;font-size:16px;transition:transform .35s}
+#hero .hero-cta:hover{background:rgba(198,115,70,.18);border-color:#d99b6c;transform:translateY(-2px)}
+#hero .hero-cta:hover span{transform:translateX(4px)}
+@keyframes coffee-camera{0%{background-position:50% 48%}100%{background-position:56% 43%}}
+@keyframes steam-rise{0%{opacity:0;transform:translate3d(0,24px,0) scaleX(.85) scaleY(.8)}22%{opacity:.75}75%{opacity:.35}100%{opacity:0;transform:translate3d(18px,-115px,0) scaleX(1.25) scaleY(1.18)}}
+@media(max-width:700px){#hero{background-image:linear-gradient(90deg,rgba(17,13,10,.81),rgba(17,13,10,.38)),linear-gradient(0deg,rgba(17,13,10,.80),transparent 54%),url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1000&q=85");background-position:56% center;animation-duration:36s}#hero .coffee-steam{left:50%;bottom:37%;height:100px}#hero .coffee-steam:nth-of-type(2){left:56%}#hero .coffee-steam:nth-of-type(3){left:45%}#hero .hero-cta{margin-top:20px}}
+@media(prefers-reduced-motion:reduce){#hero{animation:none}#hero .coffee-steam{display:none}#hero .hero-cta,#hero .hero-cta span{transition:none}}
+#gate{background-image:linear-gradient(180deg,rgba(17,13,10,.82),rgba(17,13,10,.74)),url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=85");background-position:center;background-size:cover}
 #eternity{background-image:linear-gradient(90deg,rgba(17,13,10,.88),rgba(17,13,10,.58)),url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=85");background-position:center;background-size:cover}</style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -935,6 +947,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ hero -->
 <section class="hero" id="hero" data-cam="0">
+  <span class="coffee-steam" aria-hidden="true"></span><span class="coffee-steam" aria-hidden="true"></span><span class="coffee-steam" aria-hidden="true"></span>
   <div class="hero-top">
     <div class="eyebrow" data-rv="fade"><span class="dot"></span> Kedai Senja — Kopi Pilihan Nusantara</div>
     <h1 class="display h-hero">
@@ -943,6 +956,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
       <span class="mask-line"><span>tenang.</span></span>
     </h1>
     <p class="hero-sub body" data-rv="up">Dari kebun pilihan Nusantara ke cangkir hangatmu. Temukan rasa yang membuat hari terasa lebih pelan.</p>
+    <a class="hero-cta" href="#pathways">Jelajahi menu <span aria-hidden="true">↗</span></a>
   </div>
 
   <div class="hero-spacer"></div>
